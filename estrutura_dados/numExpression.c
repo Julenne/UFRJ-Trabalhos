@@ -11,10 +11,27 @@ typedef struct pilha{
 
 int tam;
 
-void splitExpression(char *exp, pilha *p){
-	char expString[TAM*2];
+int main(){
+	/*CONVERTER
+	char c = '1';
+	int a = c - '0';
+	*/
+	//char *expString;
+	pilha *p;
+	char *exp;
+	exp = (char*)malloc(TAM * sizeof(char));
+	
+
+	exp = NULL;
+	exp = "((10+13)*9)*29";
+
+	//printf("Tudo ae: %s\n", exp); 
+
+	char expString[TAM];
 	int j=0;
-	p = (pilha*)malloc(sizeof(pilha));
+	for(int i=0; i<TAM;i++){
+		expString[i] = ' ';
+	}
 	for(int i=0; i<strlen(exp); i++){
 		if(isdigit(exp[i])){
 			expString[j++] = exp[i];
@@ -25,56 +42,24 @@ void splitExpression(char *exp, pilha *p){
 			if(isdigit(exp[i+1])) expString[j++] = ',';
 		}
 	}
+
 	//printf("Separado por vírgula: %s", expString);
-	//SEPARANDO A EXPRESSÃO COLOCANDO 1 CARACTERE EM CADAD POSIÇÃO.
-	char *split = strtok(expString, ",");
-	
-	pilha *novo;
+	char *s = strtok(expString, ","); 
 	p = NULL;
-  while(split != NULL) {
+	pilha *novo;
+  while(s != NULL) {
 		novo = (pilha*)malloc(sizeof(pilha));
-		novo -> chave = split;
+		novo -> chave = s;
 		novo -> prox = p;
 		p = novo;
-	 	//printf( "%s\n", p->chave );
-    split = strtok(NULL, ",");
-  }
-	//free(split);
-	/*pilha *tmp = p;
-	
-	while (tmp != NULL){
-		printf("%s\n", tmp->chave);
-		tmp = tmp->prox;
-		if(tmp == NULL) break;
-	}*/
-	//return p;
-}
-
-int main(){
-	/*CONVERTER
-	char c = '1';
-	int a = c - '0';
-	*/
-	//char *expString;
-	pilha pi;
-	pilha *p=&pi;
-	int *expPilha;
-	char *exp;
-	//char *expString;
-	exp = (char*)malloc(TAM * sizeof(char));
-	//expString = (char*)malloc((TAM*2) * sizeof(char));
-	
-	exp = "((10+13)*9)*29";
-
-	splitExpression(exp,&pi);
-	
-	//---------------INSERINDO--------------
-	
-	//expPilha = (char*)malloc(TAM * sizeof(char));
+	 	//printf("%s\n", p->chave );
+    s = strtok(NULL, ",");
+	}
+	free(s);
 	pilha *tmp = p;
 	while (tmp != NULL){
 		printf("%s\n", tmp->chave);
 		tmp = tmp->prox;
 	}
-	//free(p);
+	free(p);
 }
