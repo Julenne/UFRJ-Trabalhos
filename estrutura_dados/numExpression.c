@@ -89,52 +89,61 @@ int main(){
 	}*/
 	while(s != NULL) {
 		if(isdigit(s[0])){//vou considerar que sempre é um digito
-			if(tamp < 2){
+			
 				novo = (pilha*)malloc(sizeof(pilha));
 				novo -> chave = s;
 				novo -> prox = p;
 				p = novo;
 				tamp++;
-			} else {
-				if(tamp >= 2){
+				
+				
+					while(tamp >= 2){
 					
-					if(strcmp(op->chave,"*") || strcmp(op->chave,"/")){
-						pilha *prox = malloc(sizeof(pilha));
-						prox = p->prox;
-						int x,y; 
-						sscanf(p->chave, "%d", &x);//13
-						sscanf(prox->chave, "%d", &y);//10
-						int a;
-						if(strcmp(op->chave,"/") == 0)
-							a = x/y;
-						else if(strcmp(op->chave,"*") == 0)
-							a = x*y;
+						if(strcmp(op->chave,"*") || strcmp(op->chave,"/")){
+							pilha *prox = malloc(sizeof(pilha));
+							prox = p->prox;
+							int x,y; 
+							sscanf(p->chave, "%d", &x);//13
+							sscanf(prox->chave, "%d", &y);//10
+							int a;
+							if(strcmp(op->chave,"/") == 0)
+								a = x/y;
+							else if(strcmp(op->chave,"*") == 0)
+								a = x*y;
 
-						//printf("deu isso aqui: %d", a);
-						
-						pilha *aux = NULL;
-						aux = p;
-						p= p->prox->prox;//NULL
-						
-						tamp-=2;
-						free(aux);
+							//printf("deu isso aqui: %d", a);
 
-						pilha *aux2 = NULL;
-						aux = op;
-						op= op->prox;//NULL
+							pilha *aux = NULL;
+							aux = p;
+							p= p->prox->prox;//NULL
 
-						free(aux2);
+							tamp-=2;
+							free(aux);
 
-						/*p = prox->prox;
-						char *str = "";
-						sprintf(str,"%d",a);
-						novo = (pilha*)malloc(sizeof(pilha));
-						novo -> chave = str;
-						novo -> prox = p;
-						p = novo;
-						op=op->prox;*/
-					}
-				}
+							pilha *aux2 = NULL;
+							aux = op;
+							op= op->prox;//NULL
+
+							free(aux2);
+
+							pilha *novo3 = (pilha*)malloc(sizeof(pilha));
+							char *str = (char *) malloc(TAM * sizeof(char));;
+							sprintf(str,"%d",a);
+							//printf("%s\n", str);
+							novo3 -> chave = str;
+							novo3 -> prox = p;
+							p = novo3;
+							tamp++;
+							/*p = prox->prox;
+							char *str = "";
+							sprintf(str,"%d",a);
+							novo = (pilha*)malloc(sizeof(pilha));
+							novo -> chave = str;
+							novo -> prox = p;
+							p = novo;
+							op=op->prox;*/
+						}
+				
 			}
 		} else {
 			novo2 = (pilha*)malloc(sizeof(pilha));
