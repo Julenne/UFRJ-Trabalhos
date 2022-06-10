@@ -1,6 +1,3 @@
-//INFELIZMENTE NÃO CONSEGUI FAZER COM PARENTESES, POR ISSO O CÓDIGO SÓ FUNCIONA
-//COM OS OPERADORES E OS NUMEROS
-
 //Feito por: Arlene Pelenda 
 
 #include <stdio.h>
@@ -33,10 +30,10 @@ int main(){
 	char *exp;
 
 	exp = (char*)malloc(TAM * sizeof(char));
-	exp = NULL;
+
 	printf("Digite a expressão: \n");
-	//scanf("%s",exp);
-	exp = "(5-6)*4";
+	scanf("%s",exp);
+
 	//DIVIDINDO A STRING em tokens e colocando na pilha
 	char *expString = (char*)malloc(TAM * sizeof(char));
 	
@@ -130,7 +127,7 @@ int main(){
 		free(aux);
 	}
 
-	pilha *invertido;
+	pilha *invertido = NULL;
 	while(npolo){
 		pilha *aux = NULL;
 		aux = npolo;
@@ -143,115 +140,145 @@ int main(){
 		free(aux);
 		
 	}
-	free(novo);
-	free(npolo);
 
-	pilha *resultado
+	pilha *resultado = NULL;
 	while(invertido){
-		if(isdigit(invertido->chave)){
+		if(isdigit(invertido->chave[0])){
+			pilha *aux = NULL;
+			aux = invertido;
+			invertido= invertido->prox;
 
-		}
-	}
-
-/*
-	while(s != NULL) {
-		if(isdigit(s[0])){
-			
 			novo = (pilha*)malloc(sizeof(pilha));
-			novo -> chave = s;
-			novo -> prox = p;
-			p = novo;
-			tamp++;
-			while(tamp >= 2){
-				if(strcmp(op->chave,"*")==0 || strcmp(op->chave,"/")==0){
-					pilha *prox = malloc(sizeof(pilha));
-					prox = p->prox;
-					int x,y; 
-					sscanf(p->chave, "%d", &x);
-					sscanf(prox->chave, "%d", &y);
-					int a;
-					if(strcmp(op->chave,"/") == 0)
-						a = x/y;
-					else if(strcmp(op->chave,"*") == 0)
-						a = x*y;
-
-					pilha *aux = NULL;
-					aux = p;
-					p= p->prox->prox;
-
-					tamp-=2;
-					free(aux);
-
-					pilha *aux2 = NULL;
-					aux2 = op;
-					op= op->prox;
-
-					free(aux2);
-
-					pilha *novo3 = (pilha*)malloc(sizeof(pilha));
-					char *str = (char *) malloc(TAM * sizeof(char));;
-					sprintf(str,"%d",a);
-						//printf("%d\n", a);
-					novo3 -> chave = str;
-					novo3 -> prox = p;
-					p = novo3;
-					tamp++;
-				}else{
-					break;
-				}			
-			}
+			novo -> chave = aux->chave;
+			novo -> prox = resultado;
+			resultado = novo;
 		} else {
-			novo2 = (pilha*)malloc(sizeof(pilha));
-			novo2 -> chave = s;
-			novo2 -> prox = op;
-			op = novo2;
-		}
-		s = strtok(NULL, ",");
-	}
-	
-	while(tamp >=2){
-		if(strcmp(op->chave,"+")==0 || strcmp(op->chave,"-")==0){
-			pilha *prox = malloc(sizeof(pilha));
-			prox = p->prox;
-			int x,y; 
-			sscanf(p->chave, "%d", &x);//13
-			sscanf(prox->chave, "%d", &y);//10
-			int a;
-			if(strcmp(op->chave,"+") == 0)
-				a = x+y;
-			else if(strcmp(op->chave,"-") == 0)
+			if(strcmp(invertido->chave,"-")==0){
+				pilha *aux = NULL;
+				aux = invertido;
+				invertido= invertido->prox;
+
+				pilha *prox = malloc(sizeof(pilha));
+				prox = resultado->prox;
+				int x,y; 
+				sscanf(prox->chave, "%d", &x);
+				sscanf(resultado->chave, "%d", &y); 
+				int a;
 				a = x-y;
 
-			pilha *aux = NULL;
-			aux = p;
-			p= p->prox->prox;
+				pilha *aux2 = NULL;
+				aux2 = resultado;
+				resultado= resultado->prox->prox;
 
-			tamp-=2;
-			free(aux);
+				pilha *novo2 = (pilha*)malloc(sizeof(pilha));
+				char *str = (char *) malloc(TAM * sizeof(char));
+				
+				sprintf(str,"%d",a);
+						//printf("%d\n", a);
+				novo2 -> chave = str;
+				novo2 -> prox = resultado;
+				resultado = novo2;
 
-			pilha *aux2 = NULL;
-			aux2 = op;
-			op= op->prox;
+				free(aux);
+				free(aux2);
+				continue;
+			}
+			if(strcmp(invertido->chave,"+")==0){
+				pilha *aux = NULL;
+				aux = invertido;
+				invertido= invertido->prox;
 
-			free(aux2);
+				pilha *prox = malloc(sizeof(pilha));
+				prox = resultado->prox;
+				int x,y; 
+				sscanf(prox->chave, "%d", &x);
+				sscanf(resultado->chave, "%d", &y); 
+				int a;
+				a = x+y;
 
-			pilha *novo3 = (pilha*)malloc(sizeof(pilha));
-			char *str = (char *) malloc(TAM * sizeof(char));;
-			sprintf(str,"%d",a);
-			//printf("%s\n", str);
-			novo3 -> chave = str;
-			novo3 -> prox = p;
-			p = novo3;
-			tamp++;
+				pilha *aux2 = NULL;
+				aux2 = resultado;
+				resultado= resultado->prox->prox;
+
+				pilha *novo2 = (pilha*)malloc(sizeof(pilha));
+				char *str = (char *) malloc(TAM * sizeof(char));;
+				sprintf(str,"%d",a);
+						//printf("%d\n", a);
+				novo2 -> chave = str;
+				novo2 -> prox = resultado;
+				resultado = novo2;
+
+				free(aux);
+				free(aux2);
+				continue;
+			}
+			if(strcmp(invertido->chave,"*")==0){
+				pilha *aux = NULL;
+				aux = invertido;
+				invertido= invertido->prox;
+
+				pilha *prox = malloc(sizeof(pilha));
+				prox = resultado->prox;
+				int x,y; 
+				sscanf(prox->chave, "%d", &x);
+				sscanf(resultado->chave, "%d", &y); 
+				int a;
+				a = x*y;
+
+				pilha *aux2 = NULL;
+				aux2 = resultado;
+				resultado= resultado->prox->prox;
+
+				pilha *novo2 = (pilha*)malloc(sizeof(pilha));
+				char *str = (char *) malloc(TAM * sizeof(char));;
+				sprintf(str,"%d",a);
+						//printf("%d\n", a);
+				novo2 -> chave = str;
+				novo2 -> prox = resultado;
+				resultado = novo2;
+
+				free(aux);
+				free(aux2);
+				continue;
+			}
+			if(strcmp(invertido->chave,"/")==0){
+				pilha *aux = NULL;
+				aux = invertido;
+				invertido= invertido->prox;
+
+				pilha *prox = malloc(sizeof(pilha));
+				prox = resultado->prox;
+				int x,y; 
+				sscanf(prox->chave, "%d", &x);
+				sscanf(resultado->chave, "%d", &y); 
+				int a;
+				a = x/y;
+
+				pilha *aux2 = NULL;
+				aux2 = resultado;
+				resultado= resultado->prox->prox;
+
+				pilha *novo2 = (pilha*)malloc(sizeof(pilha));
+				char *str = (char *) malloc(TAM * sizeof(char));;
+				sprintf(str,"%d",a);
+						//printf("%d\n", a);
+				novo2 -> chave = str;
+				novo2 -> prox = resultado;
+				resultado = novo2;
+
+				free(aux);
+				free(aux2);
+				continue;
+			}
 		}
 	}
-*/
+
 	free(s);
 	
-	pilha *tmp = outra;
+	pilha *tmp = resultado;
 	//PRINTANDO NA TELA O RESULTADO:
 	while (tmp != NULL){
-		printf("%s", tmp->chave);
+		printf("A resposta é: %s", tmp->chave);
 		tmp = tmp->prox;
 	}
 	free(tmp);
