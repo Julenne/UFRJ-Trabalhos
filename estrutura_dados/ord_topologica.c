@@ -1,3 +1,4 @@
+//Arlene Pelenda Julienne
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -14,20 +15,20 @@ int main(){
 	char *nums = (char*)malloc(1000 * sizeof(char));
 	adj *ord = NULL;
 
-	printf("Digite total de vértices e arestas: ");
+	//printf("Digite total de vértices e arestas: ");
 	scanf("%d%d",&totVert,&totArest);
 
 	setbuf(stdin, NULL);
 
-	adj *vetor[totVert];//2 vertices
+	adj *vetor[totVert];
 	adj *novo;
 	int grauVert[totVert];
 	for(int i=0;i<totVert;i++){
 		grauVert[i]=0;
 	}
-	//formando o grafo no vetor
+
 	for(int i=0;i<totVert;i++){
-		printf("Vizinhos do vértice %d: ",i+1);
+		//printf("Vizinhos do vértice %d: ",i+1);
 		fgets(nums, 1000, stdin);
 
 		char *token = strtok (nums," "); 
@@ -111,5 +112,8 @@ int main(){
 		printf("%d\t", tmp->chave);
 		tmp = tmp->prox;
 	}
-
+	/*free(tmp);
+	free(invertido);
+	free(novo);
+	free(ord);*/
 }

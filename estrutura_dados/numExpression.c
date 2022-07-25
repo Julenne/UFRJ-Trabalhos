@@ -25,8 +25,6 @@ bool precedencia(char *s1, char *s2){
 }
 
 int main(){
-	pilha *p;
-	pilha *op;
 	char *exp;
 
 	exp = (char*)malloc(TAM * sizeof(char));
@@ -50,24 +48,19 @@ int main(){
 	}
 
 	char *s = strtok(expString, ","); 
-	p = NULL;
-	op = NULL;
 	pilha *novo;
 	pilha *novo2;
 	pilha *simb;
 	pilha *npolo;
 	simb = NULL;
 	npolo = NULL;
-	int tamp=0;
-	int x = 0;
-	char *vetor = (char*)malloc(TAM * sizeof(char));
+
 	while(s){
 		if(isdigit(s[0])){
 			novo = (pilha*)malloc(sizeof(pilha));
 			novo -> chave = s;
 			novo -> prox = npolo;
 			npolo = novo;
-			tamp++;
 		  }else if(strcmp(s,"(")==0){
 				novo2 = (pilha*)malloc(sizeof(pilha));
 				novo2 -> chave = s;
@@ -83,7 +76,6 @@ int main(){
 					novo2 -> chave = aux->chave;
 					novo2 -> prox = npolo;
 					npolo = novo2;
-					tamp++;
 					free(aux);
 				}
 				pilha *aux2 = NULL;//tirar a abertura de parenteses
@@ -111,7 +103,6 @@ int main(){
 				novo2 -> chave = s;
 				novo2 -> prox = simb;
 				simb = novo2;
-				tamp++;
 			}		
 		s = strtok(NULL, ",");
 	}
@@ -283,5 +274,5 @@ int main(){
 	}
 	free(tmp);
 	free(npolo);
-
+	free(resultado);
 }
